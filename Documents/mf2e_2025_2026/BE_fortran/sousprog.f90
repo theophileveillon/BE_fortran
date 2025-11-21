@@ -30,7 +30,19 @@ function H(x)
     else 
         val = 0
 
-    end function 
+    end function H
 
 
+function f(x,p)
+    use m_type
+    implicit none
+
+    type(phys) , intent(in):: p
+    real, intent(in):: x
+    integer :: H
+    real :: f 
+
+    f= H(x-p%L/10)-H(x-p%L/5)
+
+end function f 
 
