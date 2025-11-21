@@ -1,19 +1,20 @@
-subroutine lecture_data(nom_fichier)
+subroutine lecture_data(nom_fichier,n,p)
 
 use m_type
 
 implicit none
 
-    type(phys) :: p
-    character (len = 100) :: nom_fichier
+    type(phys) , intent(inout):: p
+    type(num), intent(inout):: n
+    character (len = 100) , intent(in):: nom_fichier
 
     open(10, file=nom_fichier)
     read(10,*) p%L
     read(10,*) p%tf
     read(10,*) p%C0
     read(10,*) p%U0
-    read(10,*) p%N
-    read(10,*) p%Nt
+    read(10,*) n%N
+    read(10,*) n%Nt
 
     close(10)
 
@@ -48,55 +49,57 @@ function f(x,p)
 
 end function f 
 
-subroutine create_mesh(p, x_reg)
+subroutine create_mesh(n,p, x_reg)
     use m_type
     implicit none
 
     type(phys), intent (in) :: p
+    type(num), intent(in)::n
     real, dimension(:), intent (out) :: x_reg
     integer :: i
     real :: delta_x
-    delta_x = p%L / p%N
-    do i=1, p%N
+    delta_x = p%L / n%N
+    do i=1, n%N
         x_reg(i) = (i-1)*delta_x
     end do
 end subroutine create_mesh
 
 
-subroutine calc_C_dt(CNt,CNt_dt,p)
+subroutine calc_C_dt(CNt,CNt_dt,n,p)
     use m_type
     implicit none 
     type(phys), intent(in):: p
+    type(num), intent(in)::n
 
-
-    real, dimension(p%N), intent(in):: CNt 
-    real, dimension(p%N),intent(inout):: CNt_dt
+    real, dimension(n%N), intent(in):: CNt 
+    real, dimension(n%N),intent(inout):: CNt_dt
 
     integer :: i
     real:: delta_t,delta_x
 
 
-    delta_x=p%L/p%N
-    delta_t=p%tf/p%Nt
+    delta_x=p%L/n%N
+    delta_t=p%tf/n%Nt
     
-    do i=2,p%N
+    do i=2,n%N
         CNt_dt(i)=CNt(i)- p%U0 * (delta_x/delta_t) * (CNt(i)-CNt(i-1))
     end do
-    CNt_dt(1)=CNt_dt(p%N)
+    CNt_dt(1)=CNt_dt(n%N)
 
 
 end subroutine calc_C_dt
 
-subroutine C_init(x, p, C)
+subroutine C_init(x, n,p, C)
     use m_type
     implicit none
     type(phys) , intent(in) :: p
-    real, dimension(p%N), intent(in) :: x
-    real, dimension(p%N,p%Nt), intent(inout) :: C
+    type(num), intent(in)::n
+    real, dimension(n%N), intent(in) :: x
+    real, dimension(n%N,n%Nt), intent(inout) :: C
     real :: f
     integer :: i
 
-    do i = 1, p%N 
+    do i = 1, n%N 
         C(i,1) = p%C0 * f(x(i),p)
     end do
         
