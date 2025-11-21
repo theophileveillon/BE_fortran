@@ -3,6 +3,10 @@ module m_type
     
     type phys
         real :: L, tf, C0, U0
-        integer :: N, Nt
+        
     end type phys
+    
+    type num
+        integer :: N, Nt
+    end type num
 end module m_type
