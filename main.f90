@@ -7,7 +7,7 @@ program polluant
     real, dimension(:,:), allocatable:: C
     real, dimension(:), allocatable:: x_reg 
 
-    call lecture_data('donnees.dat')
+    call lecture_data('donnees.dat',n,p)
     allocate(C(n%N,n%Nt))
     allocate(x_reg(n%N))
 
