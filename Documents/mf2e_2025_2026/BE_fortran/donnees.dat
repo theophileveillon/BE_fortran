@@ -1,0 +1,6 @@
+10000   ! L longueur de la riviere
+10000   ! tf temps de propagation
+10000   ! C0 concentration initiale
+10000   ! U0 vitesse d'ecoulement
+10000   ! N discretisation spatiale
+10000   ! Nt discretisation temporelle
