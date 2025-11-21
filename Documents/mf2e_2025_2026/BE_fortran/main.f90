@@ -1,4 +1,4 @@
 program polluant
     implicit none
-    print*, 'wow'
+    print*, 'wow2'
 end program polluant
