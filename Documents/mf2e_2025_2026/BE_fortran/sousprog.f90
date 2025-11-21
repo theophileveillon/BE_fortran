@@ -61,3 +61,29 @@ subroutine create_mesh(p, x_reg)
         x_reg(i) = (i-1)*delta_x
     end do
 end subroutine create_mesh
+
+
+subroutine calc_C_dt(Ct,p)
+    use m_type
+    implicit none 
+
+    real, dimension(:), intent(in), allocatable:: CNt 
+    type(phys), intent(in):: p
+
+    real, dimension(:), intent(out), allocatable:: CNt_dt
+
+    integer :: i
+    real:: delta_t,delta_x
+
+    allocate(CNt(p%N),CNt_dt(p%N))
+
+    delta_x=p%L/p%N
+    delta_t=p%tf/p%Nt
+    
+    do i=2,p%N
+        CNt_dt(i)=CNt(i)- p%U0 * (delta_x/delta_t) * (CNt(i)-CNt(i-1))
+    end do
+    CNt_dt(1)=CNt_dt(p%N)
+
+
+end subroutine calc_C_dt
