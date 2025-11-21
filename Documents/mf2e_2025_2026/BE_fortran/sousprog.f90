@@ -46,3 +46,17 @@ function f(x,p)
 
 end function f 
 
+function create_maillage(p)
+    use m_type
+    implicit none
+
+    type(phys), intent (in) :: p
+    real, dimension(:), allocatable :: x_reg
+    integer :: i
+    real :: delta_x
+    allocate(x_reg(p%N))
+    delta_x = p%L / p%N
+    do i=0 to p%N -1
+        x_reg(i) = i*delta_x
+    end do
+end function create_maillage x_reg
