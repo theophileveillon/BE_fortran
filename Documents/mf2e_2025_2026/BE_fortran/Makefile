@@ -3,6 +3,9 @@ OPT = -g -O0 -fbounds-check
 
 OBJ = type.o main.o sousprog.o
 
+run : main.exe
+	./main.exe
+
 main.exe :	$(OBJ)
 	$(FC) $(OPT) $(OBJ) -o main.exe
 
@@ -17,3 +20,4 @@ sousprog.o :	sousprog.f90
 
 clean :
 	/bin/rm -f $(OBJ) *.mod *.exe *.mod
+
