@@ -5,14 +5,15 @@ use m_type
 implicit none
 
     type(phys) :: p
+    character (len = 100) :: nom_fichier
 
-    open(10, nom_fichier)
-    read(10,*) :: p%L
-    read(10,*) :: p%tf
-    read(10,*) :: p%C0
-    read(10,*) :: p%U0
-    read(10,*) :: p%N
-    read(10,*) :: p%Nt
+    open(10, file=nom_fichier)
+    read(10,*) p%L
+    read(10,*) p%tf
+    read(10,*) p%C0
+    read(10,*) p%U0
+    read(10,*) p%N
+    read(10,*) p%Nt
 
     close(10)
 
@@ -22,15 +23,16 @@ function H(x)
 
     implicit none
 
-    integer, intent(out) :: val
+    integer :: H
     real, intent(in) :: x 
 
     if (x<0) then
-        val = 1
+        H = 1
     else 
-        val = 0
+        H = 0
+    end if
 
-    end function H
+end function H
 
 
 function f(x,p)
@@ -46,17 +48,16 @@ function f(x,p)
 
 end function f 
 
-function create_maillage(p)
+subroutine create_mesh(p, x_reg)
     use m_type
     implicit none
 
     type(phys), intent (in) :: p
-    real, dimension(:), allocatable :: x_reg
+    real, dimension(:), intent (out) :: x_reg
     integer :: i
     real :: delta_x
-    allocate(x_reg(p%N))
     delta_x = p%L / p%N
-    do i=0 to p%N -1
-        x_reg(i) = i*delta_x
+    do i=1, p%N
+        x_reg(i) = (i-1)*delta_x
     end do
-end function create_maillage x_reg
+end subroutine create_mesh
