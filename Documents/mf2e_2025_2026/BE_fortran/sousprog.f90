@@ -86,3 +86,18 @@ subroutine calc_C_dt(CNt,CNt_dt,p)
 
 
 end subroutine calc_C_dt
+
+function C_init(f, H, x, p, C)
+    use m_type
+    implicit none
+    integer, intent(in):: H
+    real, intent(in):: f
+    type(phys) , intent(in):: p
+    real, dimension(p%N), intent(in) :: x
+    real, dimension(p%N,p%Nt), intent(inout) :: C
+
+    do i = 0, p%N -1
+        C(x_reg(i),0) = p%C0 * f(x_reg(i))
+    end do = start, end
+        
+end function C_init
