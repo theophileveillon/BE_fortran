@@ -5,10 +5,4 @@ module m_type
         real :: L, tf, C0, U0
         integer :: N, Nt
     end type phys
-
-
-
-
-
-    
-end module m_typegit add
+end module m_type
