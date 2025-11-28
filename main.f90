@@ -16,6 +16,8 @@ program polluant
     call C_init(x_reg,n,p,CNt)
     call ecriture_vecteur(n,p,x_reg)
     
+    print*, CNt
+
     do i=1,n%Nt 
         
         

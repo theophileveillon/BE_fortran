@@ -142,7 +142,7 @@ subroutine test(n,p,x,C)
     integer :: i
     real :: f
 
-    do i =1,n%n
+    do i =1,n%N
         C(i)=p%C0 * f(x(i)- p%U0 * p%tf,p)
     end do
 
