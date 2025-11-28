@@ -164,6 +164,6 @@ subroutine create_irr_mesh(n,p, x_reg, x_irreg, Gamma)
     integer :: Gamma
     delta_x = p%L / n%N
     do i=1, n%N
-        x_irreg(i) = x_reg(i) + (Gamma * L * sin((2*acos(-1)*x_reg(i))/p%L))/(3*acos(-1))
+        x_irreg(i) = x_reg(i) + (Gamma * p%L * sin((2*acos(-1.)*x_reg(i))/p%L))/(3*acos(-1.))
     end do
 end subroutine create_irr_mesh
