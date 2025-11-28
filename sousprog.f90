@@ -45,7 +45,7 @@ function f(x,p)
     integer :: H
     real :: f 
 
-    f= H(x-p%L/10)-H(x-p%L/5)
+    f= H(x-(p%L/10))-H(x-(p%L/5))
 
 end function f 
 
@@ -83,7 +83,9 @@ subroutine calc_C_dt(CNt,CNt_dt,n,p)
     
     do i=2,n%N
         CNt_dt(i)=CNt(i)- p%U0 * (delta_x/delta_t) * (CNt(i)-CNt(i-1))
+    
     end do
+    print*, delta_x/delta_t
     CNt_dt(1)=CNt_dt(n%N)
 
 
@@ -143,6 +145,7 @@ subroutine test(n,p,x,C)
     real :: f
 
     do i =1,n%N
+        print*,x(i)- p%U0 * p%tf, f(x(i)- p%U0 * p%tf,p)
         C(i)=p%C0 * f(x(i)- p%U0 * p%tf,p)
     end do
 
