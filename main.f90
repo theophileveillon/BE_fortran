@@ -8,7 +8,7 @@ program polluant
     real, dimension(:), allocatable:: x_reg , x_irreg
     integer :: i, Gamma
 
-    print*, "Choisir la valeur de gamma entre -1,0 et 1"
+    print*, "Choisir la valeur de gamma entre -1,0 et 1" !com
     read*, Gamma
 
     call lecture_data('donnees.dat',n,p)
