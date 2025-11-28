@@ -85,7 +85,7 @@ subroutine calc_C_dt(CNt,CNt_dt,n,p)
         CNt_dt(i)=CNt(i)- p%U0 * (delta_x/delta_t) * (CNt(i)-CNt(i-1))
     
     end do
-    print*, delta_x/delta_t
+    !print*, delta_x/delta_t 
     CNt_dt(1)=CNt_dt(n%N)
 
 
@@ -145,8 +145,25 @@ subroutine test(n,p,x,C)
     real :: f
 
     do i =1,n%N
-        print*,x(i)- p%U0 * p%tf, f(x(i)- p%U0 * p%tf,p)
+        !print*,x(i)- p%U0 * p%tf, f(x(i)- p%U0 * p%tf,p)
         C(i)=p%C0 * f(x(i)- p%U0 * p%tf,p)
     end do
 
 end subroutine test
+
+subroutine create_irr_mesh(n,p, x_reg, x_irreg, Gamma)
+    use m_type
+    implicit none
+
+    type(phys), intent (in) :: p
+    type(num), intent(in)::n
+    real, dimension(n%N), intent(in) :: x_reg
+    real, dimension(n%N), intent (out) :: x_irreg
+    integer :: i
+    real :: delta_x
+    integer :: Gamma
+    delta_x = p%L / n%N
+    do i=1, n%N
+        x_irreg(i) = x_reg(i) + (Gamma * L * sin((2*acos(-1)*x_reg(i))/p%L))/(3*acos(-1))
+    end do
+end subroutine create_irr_mesh
