@@ -4,9 +4,9 @@ use m_type
 
 implicit none
 
-    type(phys) , intent(inout):: p
-    type(num), intent(inout):: n
-    character (len = 100) , intent(in):: nom_fichier
+    type(phys) , intent(out):: p
+    type(num), intent(out):: n
+    character(*) , intent(in):: nom_fichier
 
     open(10, file=nom_fichier)
     read(10,*) p%L
@@ -28,9 +28,9 @@ function H(x)
     real, intent(in) :: x 
 
     if (x<0) then
-        H = 1
-    else 
         H = 0
+    else 
+        H = 1
     end if
 
 end function H
@@ -55,7 +55,7 @@ subroutine create_mesh(n,p, x_reg)
 
     type(phys), intent (in) :: p
     type(num), intent(in)::n
-    real, dimension(:), intent (out) :: x_reg
+    real, dimension(n%N), intent (out) :: x_reg
     integer :: i
     real :: delta_x
     delta_x = p%L / n%N
@@ -72,7 +72,7 @@ subroutine calc_C_dt(CNt,CNt_dt,n,p)
     type(num), intent(in)::n
 
     real, dimension(n%N), intent(in):: CNt 
-    real, dimension(n%N),intent(inout):: CNt_dt
+    real, dimension(n%N),intent(out):: CNt_dt
 
     integer :: i
     real:: delta_t,delta_x
@@ -95,12 +95,55 @@ subroutine C_init(x, n,p, C)
     type(phys) , intent(in) :: p
     type(num), intent(in)::n
     real, dimension(n%N), intent(in) :: x
-    real, dimension(n%N,n%Nt), intent(inout) :: C
+    real, dimension(n%N), intent(inout) :: C
     real :: f
     integer :: i
 
     do i = 1, n%N 
-        C(i,1) = p%C0 * f(x(i),p)
+        C(i) = p%C0 * f(x(i),p)
     end do
         
 end subroutine C_init
+
+subroutine ecriture_vecteur(n, p, C)
+    use m_type
+    implicit none
+
+    type(phys), intent(in) :: p
+    type(num),  intent(in) :: n
+    real, dimension(n%N), intent(in) :: C
+    integer :: i
+
+
+    open(10, file="resultats.dat", status="unknown", position="append")
+
+   
+    do i = 1, n%N
+        write(10, '(F10.5)', advance='no') C(i)
+    end do
+
+
+    write(10,*)
+
+    close(10)
+end subroutine ecriture_vecteur
+
+subroutine test(n,p,x,C)
+
+    use m_type
+    implicit none
+
+    type(phys), intent(in):: p
+    type(num), intent(in)::n
+
+    real, dimension(n%N), intent(in):: x
+    real, dimension(n%N), intent(out) :: C
+
+    integer :: i
+    real :: f
+
+    do i =1,n%n
+        C(i)=p%C0 * f(x(i)- p%U0 * p%tf,p)
+    end do
+
+end subroutine test
