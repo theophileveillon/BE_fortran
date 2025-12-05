@@ -130,6 +130,28 @@ subroutine ecriture_vecteur(n, p, C)
     close(10)
 end subroutine ecriture_vecteur
 
+subroutine ecriture_resultats(N,C,x)
+    use m_type
+    implicit none
+
+    type(num),  intent(in) :: n
+    real, dimension(n%N), intent(in) :: C
+    real, dimension(n%N), intent(in) :: x
+    integer :: i
+
+    open(10, file="resultats.dat", status="unknown", position="append")
+
+    do i = 1, n%N
+        write(10, '(4x, 2F16.8)', advance='no') x(i), C(i)
+    end do
+
+    write(10,*)
+
+    close(10)
+end subroutine ecriture_resultats
+
+
+
 subroutine test(n,p,x,C)
 
     use m_type
