@@ -21,19 +21,18 @@ program polluant
     
     call C_init(x_irreg,n,p,CNt)
 
-    call ecriture_vecteur(n,p,x_irreg)
+    call ecriture_resultats(n,CNt,x_irreg)
     
 
     do i=1,n%Nt 
         
-        
         call calc_C_dt(CNt,CNt_dt,n,p)
         CNt=CNt_dt
-        call ecriture_vecteur(n,p,CNt)
+        call ecriture_resultats(n,CNt,x_irreg)
 
     end do
 
-    call test(n,p,x_reg,C_th)
+    !call test(n,p,x_reg,C_th)
     deallocate(CNt,CNt_dt,x_reg, x_irreg)
 
 
