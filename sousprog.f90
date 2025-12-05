@@ -139,7 +139,7 @@ subroutine ecriture_resultats(N,C,x)
     real, dimension(n%N), intent(in) :: x
     integer :: i
 
-    open(10, file="resultats.dat", status="unknown", position="append")
+    open(10, file="resultats.csv", status="unknown", position="append")
 
     do i = 1, n%N
         if (i==n%N) then
