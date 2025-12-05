@@ -183,13 +183,14 @@ end subroutine ecriture_resultats_theo
 
 
 
-subroutine test(n,p,x,C)
+subroutine test(n,p,x,C,t)
 
     use m_type
     implicit none
 
     type(phys), intent(in):: p
     type(num), intent(in)::n
+    real , intent(in) :: t
 
     real, dimension(n%N), intent(in):: x
     real, dimension(n%N), intent(out) :: C
@@ -199,7 +200,7 @@ subroutine test(n,p,x,C)
 
     do i =1,n%N
         !print*,x(i)- p%U0 * p%tf, f(x(i)- p%U0 * p%tf,p)
-        C(i)=p%C0 * f(x(i)- p%U0 * p%tf,p)
+        C(i)=p%C0 * f(x(i)- p%U0 * t,p)
     end do
 
 end subroutine test

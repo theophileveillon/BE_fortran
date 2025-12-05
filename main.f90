@@ -25,7 +25,7 @@ program polluant
     call C_init(x_irreg,n,p,CNt)
 
     if(theo==1)then
-        !
+        
         call ecriture_resultats(n,CNt,x_irreg)
         
         do i=1,n%Nt
@@ -37,16 +37,16 @@ program polluant
         end do
     else
         call test(n,p,x_reg,C_th, 0.)
-        call ecriture_resultats_theo(n,CNt,x_irreg,test)
+        call ecriture_resultats_theo(n,CNt,x_irreg,C_th)
         
 
         do i=1,n%Nt 
             
             call calc_C_dt(CNt,CNt_dt,n,p)
-            dt = i*p%tf/n%Nt
+            dt = i * p%tf / n%Nt
             call test(n,p,x_reg,C_th,dt)
             CNt=CNt_dt
-            call ecriture_resultats_theo(n,CNt,x_irreg,test)
+            call ecriture_resultats_theo(n,CNt,x_irreg,C_th)
 
         end do
     end if

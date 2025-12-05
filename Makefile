@@ -3,8 +3,17 @@ OPT = -g -O0 -fbounds-check
 
 OBJ = type.o main.o sousprog.o
 
-run: clean main.exe
+run_1: clean main.exe
 	./main.exe
+	python3 lecture_fichier_une_image.py
+
+run_n: clean main.exe
+	./main.exe
+	python3 lecture_fichier_n_images.py
+
+run_n_theo: clean main.exe
+	./main.exe
+	python3 lecture_fichier_n_images_theo.py
 
 main.exe:	$(OBJ)
 	$(FC) $(OPT) $(OBJ) -o main.exe
@@ -20,8 +29,8 @@ sousprog.o:	sousprog.f90
 
 clean:
 ifeq ($(OS),Windows_NT)
-	del /Q *.mod *.exe *.o resultats.dat 2>nul
+	del /Q *.mod *.exe *.o res.csv *.png 2>nul
 else
-	rm -f *.mod *.exe *.o resultats.dat
+	rm -f *.mod *.exe *.o res.csv *.png
 endif
 
