@@ -143,9 +143,9 @@ subroutine ecriture_resultats(N,C,x)
 
     do i = 1, n%N
         if (i==n%N) then
-            write(10, '(F16.8, ",", F16.8)', advance='no') x(i), C(i)
+            write(10, '(F16.8, 1X, F16.8)', advance='no') x(i), C(i)
         else 
-            write(10, '(F16.8, ",", F16.8)') x(i), C(i)
+            write(10, '(F16.8, 1X, F16.8)') x(i), C(i)
         end if
     end do
 

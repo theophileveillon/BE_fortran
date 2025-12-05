@@ -20,8 +20,8 @@ sousprog.o:	sousprog.f90
 
 clean:
 ifeq ($(OS),Windows_NT)
-	del /Q *.mod *.exe *.o 2>nul
+	del /Q *.mod *.exe *.o resultats.dat 2>nul
 else
-	rm -f *.mod *.exe *.o
+	rm -f *.mod *.exe *.o resultats.dat
 endif
 
