@@ -4,7 +4,6 @@ OPT = -g -O0 -fbounds-check
 OBJ = type.o main.o sousprog.o
 
 run : main.exe
-	./make clean
 	./main.exe
 
 main.exe :	$(OBJ)
