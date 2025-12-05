@@ -2,8 +2,7 @@ module m_type
     implicit none
     
     type phys
-        real :: L, tf, C0, U0
-        
+        real :: L, tf, C0, U0 
     end type phys
     
     type num
