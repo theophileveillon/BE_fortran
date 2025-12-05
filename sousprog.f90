@@ -83,7 +83,6 @@ subroutine calc_C_dt(CNt,CNt_dt,n,p)
     
     do i=2,n%N
         CNt_dt(i)=CNt(i)- p%U0 * (delta_x/delta_t) * (CNt(i)-CNt(i-1))
-    
     end do
     !print*, delta_x/delta_t 
     CNt_dt(1)=CNt_dt(n%N)
@@ -138,22 +137,49 @@ subroutine ecriture_resultats(N,C,x)
     real, dimension(n%N), intent(in) :: C
     real, dimension(n%N), intent(in) :: x
     integer :: i
+    real :: x_tmp, max_r
 
-    open(10, file="resultats.csv", status="unknown", position="append")
+    max_r = huge(x_tmp)
+
+    open(10, file="res.csv", status="unknown", position="append")
 
     do i = 1, n%N
-        if (i==n%N) then
-            write(10, '(F16.8, 1X, F16.8)', advance='no') x(i), C(i)
-        else 
+        if (c(i)< max_r) then 
             write(10, '(F16.8, 1X, F16.8)') x(i), C(i)
+        else 
+            write(10, '(F16.8, 1X, F16.8)') x(i), max_r
         end if
     end do
 
+    close(10)
 
-    write(10,*)
+end subroutine ecriture_resultats
+
+subroutine ecriture_resultats_theo(N,C,x,test)
+    use m_type
+    implicit none
+
+    type(num),  intent(in) :: n
+    real, dimension(n%N), intent(in) :: C, x, test
+    integer :: i
+    real :: x_tmp, max_r
+
+    max_r = huge(x_tmp)
+
+    open(10, file="res.csv", status="unknown", position="append")
+
+    do i = 1, n%N
+        if (c(i)< max_r) then 
+            write(10, '(F16.8, 1X, F16.8, 1X, F16.8)') x(i), C(i), test(i)
+        else 
+            write(10, '(F16.8, 1X, F16.8, 1X, F16.8)') x(i), max_r, test(i)
+        end if
+    end do
 
     close(10)
-end subroutine ecriture_resultats
+
+end subroutine ecriture_resultats_theo
+
 
 
 
