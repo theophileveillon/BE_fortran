@@ -177,6 +177,10 @@ subroutine ecriture_resultats_theo(N,C,x,C_verif)
     do i = 1, n%N
         if ((c(i)>= max_r) .and. (C_verif(i) >= max_r)) then 
             write(10, '(F16.8, 1X, F16.8, 1X, F16.8)') x(i), max_r, max_r
+        else if (c(i)>= max_r) then
+            write(10, '(F16.8, 1X, F16.8, 1X, F16.8)') x(i), max_r, C_verif(i)
+        else if (C_verif(i) >= max_r) then 
+            write(10, '(F16.8, 1X, F16.8, 1X, F16.8)') x(i), C(i), max_r
         else
             write(10, '(F16.8, 1X, F16.8, 1X, F16.8)') x(i), C(i), C_verif(i)
         end if

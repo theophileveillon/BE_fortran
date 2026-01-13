@@ -9,7 +9,7 @@ import os
 nb_elements = 1000
 
 # Création du dossier pour les images
-os.makedirs("dossier_2", exist_ok=True)
+os.makedirs("dossier_5", exist_ok=True)
 
 # Initialisation des tableaux
 x = np.zeros(nb_elements)
@@ -44,7 +44,7 @@ with open("res.csv", "r") as my_file:
             plt.plot(x, z, 'r--o', linewidth=1.0, label='concentration_verifie')
             plt.legend()
             # Sauvegarde de l'image
-            plt.savefig(f"dossier_2/{10000+j}.png")
+            plt.savefig(f"dossier_5/{10000+j}.png")
             plt.close()
 
 print("Génération des images terminée.")
